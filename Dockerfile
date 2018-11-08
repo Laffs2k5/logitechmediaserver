@@ -1,6 +1,6 @@
 FROM phusion/baseimage:0.9.22
 
-LABEL maintainer="dlandon"
+LABEL maintainer="codechimporg"
 
 ENV DEBCONF_NONINTERACTIVE_SEEN="true" \
 	DEBIAN_FRONTEND="noninteractive" \
@@ -22,7 +22,7 @@ RUN	apt-get update && \
 	apt-get -y upgrade && \
 	apt-get -y dist-upgrade && \
 	apt-get install -y lame faad flac sox perl wget tzdata pv && \
-	apt-get install -y libio-socket-ssl-perl libcrypt-ssleay-perl &&\
+	apt-get install -y libio-socket-ssl-perl libcrypt-ssleay-perl && \
 	apt-get install -y openssl libcrypt-openssl-bignum-perl libcrypt-openssl-random-perl libcrypt-openssl-rsa-perl
 
 RUN	url="http://www.mysqueezebox.com/update/?version=7.9.1&revision=1&geturl=1&os=deb" && \
@@ -41,7 +41,8 @@ RUN	apt-get -y remove wget && \
 
 VOLUME \
 	["/config"] \
-	["/music"]
+	["/music"] \
+	["/usr/share/squeezeboxserver/Plugins"]
 
 EXPOSE 3483 3483/udp 9000 9090
 
