@@ -15,9 +15,13 @@ docker run -d \
 -e GUID="1000" \
 -v "/mnt/user/appdata/LogitechMediaServer":"/config":rw \
 -v "/mnt/user/Music":"/music":rw \
+-v "/mnt/user/Plugins":"/plugins":rw \
 codechimporg/unraid-dockers-logitechmediaserver
 
 Changes:
+
+2018-11-11
+- Added plugin volume to allow easy manual deploy of plugins
 
 2017-09-25
 - Added pv (pipeview) required for latest Spotty.
