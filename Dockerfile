@@ -35,7 +35,7 @@ RUN	url="http://www.mysqueezebox.com/update/?version=7.9.1&revision=1&geturl=1&o
 
 RUN	chmod -R +x /etc/service/logitechmediaserver /etc/my_init.d/
 
-RUN	ln -s /plugins/ /user/sbin/Plugins
+RUN	ln -s /plugins/ /usr/sbin/Plugins
 
 RUN	apt-get -y remove wget && \
 	apt-get clean -y && \
