@@ -4,7 +4,7 @@ Docker image for Logitech Media Server (SqueezeCenter, SqueezeboxServer, SlimSer
 
 The Docker updates the system on restart to apply security and Linux updates.
 
-To run LMS on unRAID:
+To run LMS:
 
 docker run -d \
 -p 3483:3483/tcp \
@@ -16,9 +16,12 @@ docker run -d \
 -v "/mnt/user/appdata/LogitechMediaServer":"/config":rw \
 -v "/mnt/user/Music":"/music":rw \
 -v "/mnt/user/Plugins":"/plugins":rw \
-codechimporg/unraid-dockers-logitechmediaserver
+codechimporg/logitechmediaserver
 
 Changes:
+
+2019-04-03
+- Change to 7.9.2 Nightly
 
 2018-11-11
 - Added plugin volume to allow easy manual deploy of plugins
