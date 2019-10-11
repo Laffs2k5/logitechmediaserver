@@ -15,4 +15,4 @@ docker run \
 -v "/opt/logitechmediaserver/music":"/music":rw \
 -v "/opt/logitechmediaserver/plugins":"/plugins":rw \
 -v "/opt/logitechmediaserver/playlists":"/playlists":rw \
-logitechmediaserver_lms_1
+logitechmediaserver_lms
