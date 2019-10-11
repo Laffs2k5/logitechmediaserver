@@ -1,4 +1,4 @@
-FROM phusion/baseimage:0.9.22
+FROM phusion/baseimage:0.11
 
 LABEL maintainer="codechimporg"
 
@@ -9,42 +9,60 @@ ENV DEBCONF_NONINTERACTIVE_SEEN="true" \
 	LC_ALL="C.UTF-8" \
 	LANG="en_US.UTF-8" \
 	LANGUAGE="en_US.UTF-8" \
-	TZ="Etc/UTC" \
-	TERM="xterm" \
-	SLIMUSER="nobody"
+	TERM="xterm"
 
 COPY init /etc/my_init.d/
 COPY run /etc/service/logitechmediaserver/
 
 RUN rm -rf /etc/service/cron /etc/service/syslog-ng
 
-RUN	apt-get update && \
+RUN	\
+	echo "**** Install Dependencies ****" && \
+	apt-get update && \
 	apt-get -y upgrade -o Dpkg::Options::="--force-confold" && \
 	apt-get -y dist-upgrade -o Dpkg::Options::="--force-confold" && \
-	apt-get install -y lame faad flac sox perl wget tzdata pv && \
+	apt-get install -y lame faad flac sox perl wget pv && \
 	apt-get install -y libio-socket-ssl-perl libcrypt-ssleay-perl && \
-	apt-get install -y openssl libcrypt-openssl-bignum-perl libcrypt-openssl-random-perl libcrypt-openssl-rsa-perl
+	apt-get install -y openssl libcrypt-openssl-bignum-perl libcrypt-openssl-random-perl libcrypt-openssl-rsa-perl && \
+    apt-get install -y locales python-pip libinline-python-perl
 
-RUN	url="http://www.mysqueezebox.com/update/?version=7.9.2&revision=1&geturl=1&os=deb" && \
+RUN \
+	echo "**** Install Google Music dependencies ****" && \
+	pip install --no-cache-dir gmusicapi==12.1.1
+
+RUN	\
+	echo "**** Install latest Logitech Media Server package ****" && \
+	url="http://www.mysqueezebox.com/update/?version=7.9.2&revision=1&geturl=1&os=deb" && \
 	latest_lms=$(wget -q -O - "$url") && \
 	mkdir -p /sources && \
 	cd /sources && \
-	wget $latest_lms && \
+	wget --quiet $latest_lms && \
 	lms_deb=${latest_lms##*/} && \
 	dpkg -i $lms_deb
 
 RUN	chmod -R +x /etc/service/logitechmediaserver /etc/my_init.d/
 
-RUN	ln -s /plugins/ /usr/sbin/Plugins
-
-RUN	apt-get -y remove wget && \
+RUN	\
+	echo "**** cleanup ****" && \
+	apt-get remove -y locales python-pip python-dev && \
+	apt-get remove -y wget && \
 	apt-get clean -y && \
-	apt-get -y autoremove
+	apt-get -y autoremove && \
+	rm -rf \
+		/sources \
+		/var/lib/apt/lists/* \
+		/tmp/* \
+		/var/tmp/*
+
+RUN \
+	mkdir /plugins && \
+	ln -s /config/cache/InstalledPlugins/Plugins /plugins
 
 VOLUME \
-	["/config"] \
-	["/music"] \
-	["/plugins"]
+	["/config"]	 	\
+	["/music"] 		\
+	["/plugins"]	\
+	["/playlist"]
 
 EXPOSE 3483 3483/udp 9000 9090
 
