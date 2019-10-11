@@ -3,6 +3,34 @@
 # run
 #
 
-# Start squeezeboxserver
+# Apply the given parameters on first boot
+if [ ! -f "/etc/initialbootpassed" ]
+then
+	echo "-------> Initial boot"
+	if [ -n "${PGID}" ]
+	then
+		OLDGID=$(id -g docker)
+		groupmod -g $PGID docker
+		find / -group $OLDGID -exec chgrp -h docker {} \;
+	fi
+
+	if [ -n "${PUID}" ]
+	then
+		OLDUID=$(id -u docker)
+		usermod -u $PUID docker
+		find / -user $OLDUID -exec chown -h docker {} \;
+	fi
+
+	touch /etc/initialbootpassed
+else
+	echo "-------> Standard boot"
+fi
+
+# Launch the squeezebox server
 echo "Start Logitech Media Server..."
-squeezeboxserver --u $SLIMUSER --prefsdir /config/prefs --logdir /config/logs --cachedir /config/cache
+squeezeboxserver \
+    --user docker \
+    --prefsdir /config/prefs \
+    --logdir /config/logs \
+    --cachedir /config/cache \
+    --charset=utf8
