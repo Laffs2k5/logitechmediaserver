@@ -54,4 +54,4 @@ chmod -R go+rw /config
 chown docker:docker \
 	/music \
 	/plugins \
-	/playlist
+	/playlists

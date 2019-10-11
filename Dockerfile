@@ -62,7 +62,7 @@ VOLUME \
 	["/config"]	 	\
 	["/music"] 		\
 	["/plugins"]	\
-	["/playlist"]
+	["/playlists"]
 
 EXPOSE 3483 3483/udp 9000 9090
 
