@@ -5,7 +5,7 @@ docker run \
 --name="logitechmediaserver_lms_1" \
 -p 3483:3483/tcp \
 -p 3483:3483/udp \
--p 9001:9000/tcp \
+-p 9000:9000/tcp \
 -p 9090:9090/tcp \
 -e PUID="1000" \
 -e PGID="1000" \
