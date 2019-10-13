@@ -56,7 +56,8 @@ RUN	\
 
 RUN \
 	mkdir /plugins && \
-	ln -s /config/cache/InstalledPlugins/Plugins /plugins
+	ln -s /plugins /usr/sbin/Plugins && \
+	ln -s /plugins /usr/share/squeezeboxserver/Plugins
 
 VOLUME \
 	["/config"]	 	\
