@@ -34,8 +34,6 @@ RUN \
 	cpanm --notest Inline::Python && \
 	cpanm --notest IO::Socket::SSL
 
-	pip install --no-cache-dir gmusicapi==12.1.1
-
 RUN	\
 	echo "**** Install latest Logitech Media Server package ****" && \
 	url="http://www.mysqueezebox.com/update/?version=7.9.2&revision=1&geturl=1&os=deb" && \
