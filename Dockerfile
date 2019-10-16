@@ -21,13 +21,19 @@ RUN	\
 	apt-get update && \
 	apt-get -y upgrade -o Dpkg::Options::="--force-confold" && \
 	apt-get -y dist-upgrade -o Dpkg::Options::="--force-confold" && \
-	apt-get install -y lame faad flac sox perl wget pv && \
+	apt-get install -y lame faad flac sox perl wget pv make && \
 	apt-get install -y libio-socket-ssl-perl libcrypt-ssleay-perl && \
 	apt-get install -y openssl libcrypt-openssl-bignum-perl libcrypt-openssl-random-perl libcrypt-openssl-rsa-perl && \
     apt-get install -y locales python-pip libinline-python-perl
 
 RUN \
 	echo "**** Install Google Music dependencies ****" && \
+	pip install --no-cache-dir gmusicapi==12.1.1 && \
+	cpan App::cpanminus && \
+	cpanm --notest Inline && \
+	cpanm --notest Inline::Python && \
+	cpanm --notest IO::Socket::SSL
+
 	pip install --no-cache-dir gmusicapi==12.1.1
 
 RUN	\
@@ -44,7 +50,7 @@ RUN	chmod -R +x /etc/service/logitechmediaserver /etc/my_init.d/
 
 RUN	\
 	echo "**** cleanup ****" && \
-	apt-get remove -y locales python-pip python-dev && \
+	apt-get remove -y locales python-dev && \
 	apt-get remove -y wget && \
 	apt-get clean -y && \
 	apt-get -y autoremove && \
