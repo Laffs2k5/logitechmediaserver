@@ -1,9 +1,11 @@
 FROM phusion/baseimage:0.11
 
 ARG BUILD_DATE
+ARG BUILD_VERSION
 ARG LMS_DOWNLOAD_URL
 
 LABEL org.label-schema.build-date=$BUILD_DATE
+LABEL org.label-schema.version=$BUILD_VERSION
 
 ENV DEBCONF_NONINTERACTIVE_SEEN="true" \
 	DEBIAN_FRONTEND="noninteractive" \
