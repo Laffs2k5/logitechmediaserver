@@ -25,7 +25,7 @@ RUN	\
 	apt-get install -y libio-socket-ssl-perl libcrypt-ssleay-perl && \
 	apt-get install -y openssl libcrypt-openssl-bignum-perl libcrypt-openssl-random-perl libcrypt-openssl-rsa-perl && \
     apt-get install -y locales python-pip libinline-python-perl && \
-	apt-get install -y mplayer-nogui
+	apt-get install -y mplayer
 
 RUN \
 	echo "**** Install Google Music dependencies ****" && \
