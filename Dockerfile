@@ -24,16 +24,7 @@ RUN	\
 	apt-get install -y lame faad flac sox perl wget pv make && \
 	apt-get install -y libio-socket-ssl-perl libcrypt-ssleay-perl && \
 	apt-get install -y openssl libcrypt-openssl-bignum-perl libcrypt-openssl-random-perl libcrypt-openssl-rsa-perl && \
-    apt-get install -y locales python-pip libinline-python-perl && \
 	apt-get install -y mplayer
-
-RUN \
-	echo "**** Install Google Music dependencies ****" && \
-	pip install --no-cache-dir gmusicapi==12.1.1 && \
-	cpan App::cpanminus && \
-	cpanm --notest Inline && \
-	cpanm --notest Inline::Python && \
-	cpanm --notest IO::Socket::SSL
 
 RUN	\
 	echo "**** Install latest Logitech Media Server package ****" && \
